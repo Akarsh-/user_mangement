@@ -63,7 +63,7 @@ const readUserCSV = function (filepath, totalEntryIn1Go, callback) {
 
         .on('end', async () => {
             // handle end of CSV
-            console.log(" at end " + lstRows.length);
+            //console.log(" at end " + lstRows.length);
             try {
                 if (lstRows.length > 0) {
                     await insertIntoDB(lstRows);
@@ -85,10 +85,10 @@ const insertIntoDB = async function (values) {
         let query = 'INSERT INTO users (user_name, user_email, user_phone) VALUES ?';
         rds.INSERT(query, [values], (result) => {
             if (result.err) {
-                console.log(result);
+                console.log("error while inserting ", result);
                 reject();
             } else {
-                console.log(result.data); // x records inserted
+
                 resolve();
             }
         });

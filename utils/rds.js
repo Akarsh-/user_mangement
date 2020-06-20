@@ -11,6 +11,9 @@ const DB = {
 
 var mysqlConnectionPoolNew = null
 
+/**
+ * connect to DB
+ */
 module.exports.initConnectionPoolNew = function () {
 
 

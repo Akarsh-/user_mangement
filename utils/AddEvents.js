@@ -66,15 +66,15 @@ const insertIntoDB = async function (values) {
         let newStartTime = values[1]
         let newEndTime = values[2]
 
+        if (newStartTime > newEndTime && values[5] == 0) {
+            console.error("invalid event ", values[0])
+            resolve()
+            return;
+        }
+
         try {
             let query = 'INSERT INTO events (title, start_time, end_time, description, allday) VALUE (?,?,?,?,?)';
             let eventId = await rds.INSERT(query, [values[0], values[1], values[2], values[3], values[5]])
-
-            if (newStartTime > newEndTime) {
-                console.error("invalid event ", values[0])
-                resolve()
-                return;
-            }
 
             let strUserWithRSVP = values[4]
             let lstUserWithRSVP = strUserWithRSVP.length > 0 ? strUserWithRSVP.split(";") : []
@@ -92,8 +92,8 @@ const insertIntoDB = async function (values) {
                 lstUsersAndRes.push([userId, eventId, userResp])
             }
 
-            console.log("userid is ", lstUsers);
-            console.log("response maps is ", lstUsersAndRes)
+            // console.log("userid is ", lstUsers);
+            // console.log("response maps is ", lstUsersAndRes)
 
             if (lstUsers.length == 0) {
                 resolve()
@@ -109,13 +109,13 @@ const insertIntoDB = async function (values) {
                 lstOverlapEvents.push(overlapEvents[i]["event_id"])
             }
 
-            console.log("overlapped event ids are ", lstOverlapEvents);
+            //console.log("overlapped event ids are ", lstOverlapEvents);
 
             if (lstOverlapEvents.length > 0) {
                 query = 'SELECT user_name from event_users where event_id in (?) and user_name in (?) and user_resp = ?'
                 let overlapYESEventUsers = await rds.SELECT(query, [lstOverlapEvents, lstUsers, 'yes'])
 
-                console.log("overlap users with yes are ", overlapYESEventUsers)
+                //console.log("overlap users with yes are ", overlapYESEventUsers)
 
                 //mark overlap users as no
                 if (overlapYESEventUsers.length != 0) {
@@ -137,11 +137,10 @@ const insertIntoDB = async function (values) {
             console.log("final list of users with res ", lstUsersAndRes);
 
             query = "INSERT into event_users (user_name, event_id, user_resp) VALUES ?"
-            let temp = await rds.INSERT(query, [lstUsersAndRes])
-            console.log("temp is ", temp)
+            await rds.INSERT(query, [lstUsersAndRes])
 
             resolve()
-            //query = 'SELECT * '
+
         }
         catch (e) {
             reject(e)
