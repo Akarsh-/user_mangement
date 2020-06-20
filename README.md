@@ -1,7 +1,7 @@
 # user_event_mangement
 
 DB setup
-I used MySQL, DB configs can be changed from utils/rds file
+I used MySQL, DB configs can be changed from utils/rds.js file
 I created DB with name user_events
 I created 3 tables (check queries.sql)
 
@@ -12,7 +12,7 @@ to start node service do following on cmd prompt
 
 this will start server at port 4344
 
-there are 2 files event.sh user.sh they can be used to add events and users to db
+there are 2 files event.sh , user.sh they can be used to add events and users to db
 
 Always add users first like
 ./user.sh pathtouser.csv
