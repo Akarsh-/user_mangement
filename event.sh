@@ -1,0 +1,1 @@
+curl -d "path=$1"  -X POST http://localhost:4344/upload/events
