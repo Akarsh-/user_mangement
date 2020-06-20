@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "699f49a7-07b4-4e57-9dc0-0d5b6d5c4eaf",
+		"name": "user_mangement",
+		"description": "sample apis for getting \n1) schduled events for day\n2) user free time",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "events",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"startTime\": \"2019-01-13\",\n\t\"endTime\": \"2019-01-12\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}events",
+					"host": [
+						"{{baseurl}}events"
+					]
+				},
+				"description": "get user free time"
+			},
+			"response": []
+		},
+		{
+			"name": "{{baseurl}}user_availability",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"startTime\": \"2019-01-13\",\n\t\"endTime\": \"2019-03-12\",\n\t\"userName\" : \"aileen\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}user_availability",
+					"host": [
+						"{{baseurl}}user_availability"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e2908038-cffc-4be8-a76d-e516cdbac1b1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b7cc7b1d-2991-409f-8356-117137be1924",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "c75d595b-7bcb-45e9-90a6-10ffdc4a6055",
+			"key": "baseurl",
+			"value": "http://localhost:4344/",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

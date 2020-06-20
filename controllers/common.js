@@ -5,7 +5,17 @@ module.exports.getEvents = async function (req, res, next) {
     try {
         let startTime = new Date(req.body.startTime);
         let endTime = new Date(req.body.endTime);
-        if (startTime > endTime) {
+
+        //check for valid inputs
+        if (startTime == "Invalid Date") {
+            res.json({ err: "invalid or missing startTime date format" })
+            return
+        }
+        else if (endTime == "Invalid Date") {
+            res.json({ err: "invalid or missing endTime date format" })
+            return
+        }
+        else if (startTime > endTime) {
             res.json({ err: "startdate greater than end date" })
             return
         }
@@ -25,16 +35,25 @@ module.exports.getUserSchedule = async function (req, res, next) {
     try {
         let startTime = new Date(req.body.startTime);
         let endTime = new Date(req.body.endTime);
+        let userName = req.body.userName
 
-        if (startTime == "Invalid Date" || endTime == "Invalid Date") {
-            res.json({ err: "invalid date format" })
+        if (startTime == "Invalid Date") {
+            res.json({ err: "invalid or missing startTime date format" })
             return
         }
-        let userName = req.body.userName
-        if (startTime > endTime) {
+        else if (endTime == "Invalid Date") {
+            res.json({ err: "invalid or missing endTime date format" })
+            return
+        }
+        else if (!userName) {
+            res.json({ err: "invalid or missing userName field" })
+            return
+        }
+        else if (startTime > endTime) {
             res.json({ err: "startdate greater than end date" })
             return
         }
+
         let result = await commonUtils.getUserFreeTime(startTime, endTime, userName)
 
         console.log(result);
