@@ -18,6 +18,7 @@ ALWAYS ADD USERS FIRST like
 ./user.sh pathtouser.csv
 
 IF USERS ARE NOT ADDED FIRST THERE RESPONSES WILL NOT BE STORED
+
 Add events like
 ./event.sh pathtoevent.csv
 
