@@ -14,8 +14,10 @@ this will start server at port 4344
 
 there are 2 files event.sh , user.sh they can be used to add events and users to db
 
-Always add users first like
+ALWAYS ADD USERS FIRST like
 ./user.sh pathtouser.csv
+
+IF USERS ARE NOT ADDED FIRST THERE RESPONSES WILL NOT BE STORED
 Add events like
 ./event.sh pathtoevent.csv
 
